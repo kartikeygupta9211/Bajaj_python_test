@@ -1,9 +1,9 @@
 import requests
 
 # Developer info
-your_name = "John Doe"
-your_reg_no = "REG12347"
-your_email = "john@example.com"
+your_name = "Kartikey Gupta"
+your_reg_no = "0827CS221125"
+your_email = "kartikeygupta220679@acropolis.in"
 
 # Step 1: Generate webhook and token
 generate_url = "https://bfhldevapigw.healthrx.co.in/hiring/generateWebhook/PYTHON"

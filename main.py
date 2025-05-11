@@ -1,20 +1,19 @@
 import requests
 
-# 🔁 Replace these with your actual details
-your_name = "Your Name"
-your_reg_no = "REG12345"  # e.g., REG12347
-your_email = "your@email.com"
+# Developer info
+your_name = "John Doe"
+your_reg_no = "REG12347"
+your_email = "john@example.com"
 
-# Step 1: Generate webhook
+# Step 1: Generate webhook and token
 generate_url = "https://bfhldevapigw.healthrx.co.in/hiring/generateWebhook/PYTHON"
 generate_body = {
-    "name": "John Doe",
-    "regNo": "REG12347",
-    "email": "john@example.com"
+    "name": your_name,
+    "regNo": your_reg_no,
+    "email": your_email
 }
 
 response = requests.post(generate_url, json=generate_body)
-
 if response.status_code == 200:
     data = response.json()
     webhook_url = data.get("webhook")
@@ -25,14 +24,13 @@ else:
     print("Failed to generate webhook:", response.text)
     exit()
 
-# Step 2: Show your assigned question
-last_digit = int(your_reg_no[-1])
-if last_digit % 2 == 0:
+# Step 2: Show assigned question
+if int(your_reg_no[-1]) % 2 == 0:
     print("Your Question (Even): https://drive.google.com/file/d/1PO1ZvmDqAZJv77XRYsVben11Wp2HVb/view")
 else:
     print("Your Question (Odd): https://drive.google.com/file/d/1q8F8g0EpyNzd5BWk-voe5CKbsxoskJWY/view")
 
-# 🔧 Step 3: Paste your final SQL query here (after solving your question manually)
+# Step 3: Final SQL query
 final_sql_query = """
 SELECT 
     p.AMOUNT AS SALARY,
@@ -47,17 +45,14 @@ ORDER BY p.AMOUNT DESC
 LIMIT 1;
 """
 
-
-# Step 4: Submit SQL to webhook
+# Step 4: Submit the SQL query
 headers = {
     "Authorization": access_token,
     "Content-Type": "application/json"
 }
-
 submit_body = {
     "finalQuery": final_sql_query.strip()
 }
-
 submit_response = requests.post(webhook_url, json=submit_body, headers=headers)
 
 if submit_response.status_code == 200:
